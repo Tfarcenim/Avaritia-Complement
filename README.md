@@ -1,36 +1,39 @@
 # AvaritiaTweaks
-[![Downloads](http://cf.way2muchnoise.eu/full_avaritia-tweaks_downloads.svg)](https://minecraft.curseforge.com/projects/avaritia-tweaks) [![MCVersion](http://cf.way2muchnoise.eu/versions/avaritia-tweaks.svg)](https://minecraft.curseforge.com/projects/avaritia-tweaks)
+[![MCVersion](http://cf.way2muchnoise.eu/versions/avaritia-tweaks.svg)](https://minecraft.curseforge.com/projects/avaritia-tweaks)
 
-[![GitHub issues](https://img.shields.io/github/issues/JackyyTV/AvaritiaTweaks.svg)](https://github.com/JackyyTV/AvaritiaTweaks/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/JackyyTV/AvaritiaTweaks.svg)](https://github.com/JackyyTV/AvaritiaTweaks/pulls) [![license](https://img.shields.io/github/license/JackyyTV/AvaritiaTweaks.svg)](../dev-1.12.2/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/Tfarcenim/AvaritiaTweaks.svg)](https://github.com/JackyyTV/AvaritiaTweaks/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/JackyyTV/AvaritiaTweaks.svg)](https://github.com/Tfarcenim/AvaritiaTweaks/pulls) [![license](https://img.shields.io/github/license/Tfarcenim/AvaritiaTweaks.svg)](../dev-1.12.2/LICENSE)
 
 ---
 
 ## About
 
-This is the GitHub repo for the Avaritia Tweaks Minecraft mod, where the source code and issue tracker are in here.
+This is a fork of the GitHub repo for the Avaritia Tweaks Minecraft mod, where the source code and issue tracker are in here as the old repo has been archived.
 
-Submit any bug reports / suggestions via [issue tracker](https://github.com/JackyyTV/AvaritiaTweaks/issues).
+THis fork is also licensed under LGPL as the original mod is under LGPL.
 
-[Pull requests](https://github.com/JackyyTV/AvaritiaTweaks/pulls) are welcome if you would like to add features / help with bug fixes or translations.
+Submit any bug reports / suggestions via [issue tracker](https://github.com/Tfarcenim/AvaritiaTweaks/issues).
+
+[Pull requests](https://github.com/Tfarcenim/AvaritiaTweaks/pulls) are welcome if you would like to add features / help with bug fixes or translations.
 
 ---
 
 ## Contact Me
 
-- Twitter DM - [@JackyyTV](https://twitter.com/JackyyTV)
-- Discord DM - Jacky#3044
-- Twitch PM - [Jackyy](https://www.twitch.tv/jackyy)
-- Reddit DM - [Jacky1356400](https://www.reddit.com/message/compose/?to=Jacky1356400)
+- Discord DM - IItemstack#1381
 
 ---
+
+## Link to original project 
+
+https://github.com/JackyyTV/AvaritiaTweaks
 
 ## Setting up workspace / compile the mod yourself
 
 If you would like to set up the workspace yourself to submit PRs of features additions or bug fixes, or compile the mod, here's how you do it.
 
 1. Clone the mod.
-    - HTTPS: `git clone https://github.com/JackyyTV/AvaritiaTweaks.git`
-    - SSH: `git clone git@github.com:JackyyTV/AvaritiaTweaks.git`
+    - HTTPS: `git clone https://github.com/Tfarcenim/AvaritiaTweaks.git`
+    - SSH: `git clone git@github.com:Tfarcenim/AvaritiaTweaks.git`
     - Or, use the GitHub desktop app to clone the repo via GUI interface.
 
 2. Setting up the workspace, depending on what you need.
