@@ -23,7 +23,7 @@ minecraft {
     runDir = "run"
     mappings = "${mappings_version}"
 
-    replace '@FINGERPRINT@', project.findProperty('signSHA1')
+  //  replace '@FINGERPRINT@', project.findProperty('signSHA1')
     replaceIn "AvaritiaTweaks.java"
 }
 
@@ -48,14 +48,26 @@ repositories {
         name = "CraftTweaker Maven"
         url = "http://maven.blamejared.com"
     }
+    maven {
+        name = "MMD Maven"
+        url = 'https://maven.mcmoddev.com' 
+    }
 }
 
 dependencies {
-	deobfCompile "mezz.jei:jei_1.12.2:+"
-	deobfCompile "mcp.mobius.waila:Hwyla:+"
+        // compile against the JEI API but do not include it at runtime
+        deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
+        // at runtime, use the full JEI jar
+        runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+	deobfCompile "mcp.mobius.waila:Hwyla:1.8.26-B41_1.12.2"
 	deobfCompile "codechicken:CodeChickenLib:1.12.2-+:universal"
-  deobfCompile "morph.avaritia:Avaritia:1.12-+:universal"
-  deobfCompile "vazkii.botania:Botania:+:universal"
+    
+  deobfCompile ("morph.avaritia:Avaritia:1.12-+:universal"){
+      transitive = false
+  }
+  deobfCompile "vazkii.botania:Botania:+"
+    deobfCompile "com.azanor:Baubles:${baubles_version}"
+
 }
 
 processResources {
