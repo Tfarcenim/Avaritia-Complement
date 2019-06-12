@@ -31,7 +31,7 @@ public class BlockInfinitato extends BlockContainer implements ILexiconable {
     public BlockInfinitato() {
         super(Material.CLOTH);
         setRegistryName("infinitato");
-        setTranslationKey(AvaritiaTweaks.MODID + ".infinitato");
+        setTranslationKey(getRegistryName().toString());
         setHardness(0.25F);
         setCreativeTab(AvaritiaTweaks.TAB);
     }

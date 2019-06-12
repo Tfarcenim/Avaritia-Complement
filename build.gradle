@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "${mc_version}-${mod_version}"
 group = "jackyy.avaritiatweaks"
-archivesBaseName = "AvaritiaTweaks"
+archivesBaseName = "Avaritia's Complement"
 
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {

@@ -7,10 +7,10 @@ key.infinity_armor.noclip=切换观察者模式
 key.infinity_armor.noclip.disabled=切换观察者模式（可在配置中禁用）
 
 #Items
-item.avaritiatweaks.enhancement_crystal.name=无暇水晶
+item.avaritiatweaks:enhancement_crystal.name=无暇水晶
 
 #Blocks
-tile.avaritiatweaks.gaia_block.name=盖亚块
+tile.avaritiatweaks:gaia_block.name=盖亚块
 
 #Tooltips
 tooltips.avaritiatweaks.enhancement_crystal=无尽或许还不够贪婪
@@ -27,7 +27,7 @@ desc.avaritiatweaks.neutron_collector=中子态素收集器收集一个中子锭
 desc.avaritiatweaks.enhancement_crystal=无暇水晶可以用于强化工具/护甲，从而赋予它们特殊的能力，如：附魔，药水效果等。
 
 #Botania Integration
-tile.avaritiatweaks.infinitato.name=无尽小土豆
+tile.avaritiatweaks:infinitato.name=无尽小土豆
 tile.botania.flower.asgardandelion.lore=以Vazkii的泪水浇灌 :c
 tile.botania.flower.soarleander.lore=我能感受到它的脉搏！
 tile.botania:flower.asgardandelion.name=阿斯加德蒲公英

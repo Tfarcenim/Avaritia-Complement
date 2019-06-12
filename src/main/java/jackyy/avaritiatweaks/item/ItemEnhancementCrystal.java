@@ -26,7 +26,7 @@ public class ItemEnhancementCrystal extends Item implements IHaloRenderItem {
 
     public ItemEnhancementCrystal() {
         setRegistryName("enhancement_crystal");
-        setTranslationKey(this.getRegistryName().toString());
+        setTranslationKey(getRegistryName().toString());
         setCreativeTab(AvaritiaTweaks.TAB);
     }
 
