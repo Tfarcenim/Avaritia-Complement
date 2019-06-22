@@ -1,5 +1,5 @@
 # AvaritiaTweaks
-[![MCVersion](http://cf.way2muchnoise.eu/versions/avaritia-tweaks.svg)](https://minecraft.curseforge.com/projects/avaritia-tweaks)
+[![MCVersion](http://cf.way2muchnoise.eu/versions/avaritia-tweaks.svg)](https://minecraft.curseforge.com/projects/avaritia-complement)
 
 [![GitHub issues](https://img.shields.io/github/issues/Tfarcenim/AvaritiaTweaks.svg)](https://github.com/JackyyTV/AvaritiaTweaks/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/JackyyTV/AvaritiaTweaks.svg)](https://github.com/Tfarcenim/AvaritiaTweaks/pulls) [![license](https://img.shields.io/github/license/Tfarcenim/AvaritiaTweaks.svg)](../dev-1.12.2/LICENSE)
 
