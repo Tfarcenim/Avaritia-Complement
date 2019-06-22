@@ -1,7 +1,7 @@
 # AvaritiaTweaks
-[![MCVersion](http://cf.way2muchnoise.eu/versions/avaritia-tweaks.svg)](https://minecraft.curseforge.com/projects/avaritia-complement)
+[![MCVersion](http://cf.way2muchnoise.eu/versions/Avaritia-Complement.svg)](https://minecraft.curseforge.com/projects/avaritia-complement)
 
-[![GitHub issues](https://img.shields.io/github/issues/Tfarcenim/AvaritiaTweaks.svg)](https://github.com/JackyyTV/AvaritiaTweaks/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/JackyyTV/AvaritiaTweaks.svg)](https://github.com/Tfarcenim/AvaritiaTweaks/pulls) [![license](https://img.shields.io/github/license/Tfarcenim/AvaritiaTweaks.svg)](../dev-1.12.2/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/Tfarcenim/Avaritia-Complement.svg)](https://github.com/Tfarcenim/Avaritia-Complement/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/Tfarcenim/Avaritia-Complement.svg)](https://github.com/Tfarcenim/Avaritia-Complement/pulls) [![license](https://img.shields.io/github/license/Tfarcenim/AvaritiaTweaks.svg)](../dev-1.12.2/LICENSE)
 
 ---
 
@@ -13,7 +13,7 @@ THis fork is also licensed under LGPL as the original mod is under LGPL.
 
 Submit any bug reports / suggestions via [issue tracker](https://github.com/Tfarcenim/AvaritiaTweaks/issues).
 
-[Pull requests](https://github.com/Tfarcenim/AvaritiaTweaks/pulls) are welcome if you would like to add features / help with bug fixes or translations.
+[Pull requests](https://github.com/Tfarcenim/Avaritia-Complement/pulls) are welcome if you would like to add features / help with bug fixes or translations.
 
 ---
 
