@@ -17,11 +17,6 @@ import java.util.List;
 
 public class TileInfinitato extends TileTinyPotato {
 
-    private static final String TAG_NAME = "name";
-    public int jumpTicks = 0;
-    public String name = "";
-    private int nextDoIt = 0;
-
     public void interact(EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side) {
         jump();
         if(name.equalsIgnoreCase("shia labeouf") && !world.isRemote && nextDoIt == 0) {
@@ -75,20 +70,4 @@ public class TileInfinitato extends TileTinyPotato {
         if(nextDoIt > 0)
             nextDoIt--;
     }
-
-    @Override
-    public void writePacketNBT(NBTTagCompound cmp) {
-        cmp.setString(TAG_NAME, name);
-    }
-
-    @Override
-    public void readPacketNBT(NBTTagCompound cmp) {
-        name = cmp.getString(TAG_NAME);
-    }
-
-    @Override
-    public int getSizeInventory() {
-        return 6;
-    }
-
 }

@@ -1,6 +1,6 @@
 package jackyy.avaritiatweaks.tweaks;
 
-import jackyy.avaritiatweaks.client.Keys;
+import jackyy.avaritiatweaks.client.ClientProxy;
 import jackyy.avaritiatweaks.config.ModConfig;
 import jackyy.avaritiatweaks.packet.PacketHandler;
 import jackyy.avaritiatweaks.packet.PacketToggleNoClip;
@@ -31,6 +31,7 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -54,7 +55,7 @@ public class ModEventsHandler {
         EnumFacing facing = event.getFace();
         Vec3d vec = event.getHitVec();
         if (!ModConfig.tweaks.makeWorldBreakerGreatAgain || facing == null || world.isRemote
-                || stack == ItemStack.EMPTY || player.getHeldItemMainhand() == ItemStack.EMPTY || player.capabilities.isCreativeMode) {
+                || stack.isEmpty() || player.capabilities.isCreativeMode) {
             return;
         }
         if (state.getBlockHardness(world, pos) <= -1 && stack.getItem() == ModItems.infinity_pickaxe) {
@@ -69,32 +70,33 @@ public class ModEventsHandler {
     }
 
     @SubscribeEvent
-    public void armorTick(LivingEvent.LivingUpdateEvent event) {
-        if (event.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer)event.getEntityLiving();
-            if (isArmorValid(player, EntityEquipmentSlot.HEAD)) {
-                checkAndAddEffect(player, ModConfig.infinityArmor.infinityHelmetPotionEffects);
+    public void armorTick(TickEvent.PlayerTickEvent event) {
+            EntityPlayer player = event.player;
+
+            if (player.world.getWorldInfo().getWorldTotalTime() % 100 == 0) {
+                if (isArmorValid(player, EntityEquipmentSlot.HEAD)) {
+                    checkAndAddEffect(player, ModConfig.infinityArmor.infinityHelmetPotionEffects);
+                }
+                if (isArmorValid(player, EntityEquipmentSlot.CHEST)) {
+                    checkAndAddEffect(player, ModConfig.infinityArmor.infinityChestplatePotionEffects);
+                }
+                if (isArmorValid(player, EntityEquipmentSlot.LEGS)) {
+                    checkAndAddEffect(player, ModConfig.infinityArmor.infinityLeggingsPotionEffects);
+                }
+                if (isArmorValid(player, EntityEquipmentSlot.FEET)) {
+                    checkAndAddEffect(player, ModConfig.infinityArmor.infinityBootsPotionEffects);
+                }
             }
-            if (isArmorValid(player, EntityEquipmentSlot.CHEST)) {
-                checkAndAddEffect(player, ModConfig.infinityArmor.infinityChestplatePotionEffects);
-            }
-            if (isArmorValid(player, EntityEquipmentSlot.LEGS)) {
-                checkAndAddEffect(player, ModConfig.infinityArmor.infinityLeggingsPotionEffects);
-            }
-            if (isArmorValid(player, EntityEquipmentSlot.FEET)) {
-                checkAndAddEffect(player, ModConfig.infinityArmor.infinityBootsPotionEffects);
-            }
-            if (isArmorValid(player, EntityEquipmentSlot.CHEST) && AvaritiaEventHandler.isInfinite(player) && noClip) {
-                player.capabilities.isFlying = true;
-                player.noClip = true;
-            }
+                if (isArmorValid(player, EntityEquipmentSlot.CHEST) && AvaritiaEventHandler.isInfinite(player) && noClip) {
+                    player.capabilities.isFlying = true;
+                    player.noClip = true;
+                }
             if (!AvaritiaEventHandler.isInfinite(player) && !noClip && !player.isSpectator()) {
                 player.noClip = false;
             }
             if (noClip && !player.capabilities.isFlying) {
                 player.capabilities.isFlying = true;
             }
-        }
     }
 
     private static boolean isArmorValid(EntityPlayer player, EntityEquipmentSlot slot) {
@@ -157,7 +159,7 @@ public class ModEventsHandler {
     @SubscribeEvent @SideOnly(Side.CLIENT)
     public void onKeyInput(InputEvent.KeyInputEvent event) {
         if (ModConfig.infinityArmor.infinityArmorNoClip) {
-            if (Keys.NOCLIP.isPressed()) {
+            if (ClientProxy.NOCLIP.isPressed()) {
                 PacketHandler.INSTANCE.sendToServer(new PacketToggleNoClip());
             }
         }
