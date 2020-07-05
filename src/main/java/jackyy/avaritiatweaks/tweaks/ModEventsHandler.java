@@ -11,6 +11,7 @@ import morph.avaritia.item.tools.ItemSwordInfinity;
 import morph.avaritia.util.TextUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,23 +27,24 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.client.event.PlayerSPPushOutOfBlocksEvent;
+import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.GetCollisionBoxesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 
 public class ModEventsHandler {
 
-    private static final Map<EntityPlayer, Boolean> MAP = new HashMap<>();
-    private static boolean noClip = false;
+    public static final HashSet<UUID> SET = new HashSet<>();
 
     @SubscribeEvent
     public void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
@@ -71,9 +73,9 @@ public class ModEventsHandler {
 
     @SubscribeEvent
     public void armorTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.START) {
             EntityPlayer player = event.player;
-
-            if (player.world.getWorldInfo().getWorldTotalTime() % 100 == 0) {
+            if (!player.world.isRemote && player.world.getWorldInfo().getWorldTotalTime() % 100 == 0) {
                 if (isArmorValid(player, EntityEquipmentSlot.HEAD)) {
                     checkAndAddEffect(player, ModConfig.infinityArmor.infinityHelmetPotionEffects);
                 }
@@ -87,16 +89,28 @@ public class ModEventsHandler {
                     checkAndAddEffect(player, ModConfig.infinityArmor.infinityBootsPotionEffects);
                 }
             }
-                if (isArmorValid(player, EntityEquipmentSlot.CHEST) && AvaritiaEventHandler.isInfinite(player) && noClip) {
-                    player.capabilities.isFlying = true;
-                    player.noClip = true;
-                }
-            if (!AvaritiaEventHandler.isInfinite(player) && !noClip && !player.isSpectator()) {
-                player.noClip = false;
+
+            if (!AvaritiaEventHandler.isInfinite(player)  && !player.isSpectator()) {
+                SET.remove(player.getUniqueID());
             }
-            if (noClip && !player.capabilities.isFlying) {
-                player.capabilities.isFlying = true;
-            }
+        }
+    }
+
+    @SubscribeEvent
+    public void noclip(PlayerSPPushOutOfBlocksEvent event) {
+        if (SET.contains(event.getEntityPlayer().getUniqueID()))event.setCanceled(true);
+    }
+
+    @SubscribeEvent
+    public void noclip(GetCollisionBoxesEvent event) {
+        if (event.getEntity() instanceof EntityPlayer && SET.contains(event.getEntity().getUniqueID()))
+        event.getCollisionBoxesList().clear();
+    }
+
+    @SubscribeEvent
+    public void noclip(RenderBlockOverlayEvent event) {
+        if (SET.contains(event.getPlayer().getUniqueID()))
+            event.setCanceled(true);
     }
 
     private static boolean isArmorValid(EntityPlayer player, EntityEquipmentSlot slot) {
@@ -109,49 +123,19 @@ public class ModEventsHandler {
         for (String potion : potions) {
             Potion effect = Potion.getPotionFromResourceLocation(potion);
             if (effect != null) {
-                player.addPotionEffect(new PotionEffect(effect, 300, 0, false, false));
+                player.addPotionEffect(new PotionEffect(effect, 400, 0, false, false));
             }
         }
     }
 
     public static void toggleNoClip(EntityPlayer player) {
         if (isArmorValid(player, EntityEquipmentSlot.CHEST)) {
-            if (MAP.containsKey(player) && MAP.get(player)) {
-                MAP.remove(player);
-                noClip = false;
+            if (SET.contains(player.getUniqueID())) {
+                SET.remove(player.getUniqueID());
                 player.sendStatusMessage(new TextComponentTranslation("msg.avaritiatweaks.noclip.disabled"), true);
             } else {
-                MAP.put(player, true);
-                noClip = true;
+                SET.add(player.getUniqueID());
                 player.sendStatusMessage(new TextComponentTranslation("msg.avaritiatweaks.noclip.enabled"), true);
-            }
-        }
-    }
-
-    @SubscribeEvent @SideOnly(Side.CLIENT)
-    public void onTooltip(ItemTooltipEvent event) {
-        ItemStack stack = event.getItemStack();
-        Item item = stack.getItem();
-        List<String> tooltip = event.getToolTip();
-        if (item instanceof ItemSwordInfinity && ModConfig.tweaks.fixInfinitySwordTooltip) {
-            for (int x = 0; x < tooltip.size(); x++) {
-                if (tooltip.get(x).contains(I18n.format("attribute.name.generic.attackDamage"))) {
-                    tooltip.set(x, " " + TextUtils.makeFabulous(I18n.format("tip.infinity")) + " "
-                            + TextFormatting.GRAY + I18n.format("attribute.name.generic.attackDamage"));
-                    return;
-                }
-            }
-        }
-        if (item == ModItems.infinity_chestplate && ModConfig.infinityArmor.infinityArmorNoClip
-                && stack.getTagCompound() != null && stack.getTagCompound().getInteger("enhanced") == 1) {
-            for (int x = 0; x < tooltip.size(); x++) {
-                if (tooltip.get(x).contains(I18n.format("attribute.name.generic.armorToughness"))) {
-                    tooltip.add(x - 1, MAP.containsKey(event.getEntityPlayer()) && MAP.get(event.getEntityPlayer())
-                            ? I18n.format("tooltips.avaritiatweaks.noclip.enabled")
-                            : I18n.format("tooltips.avaritiatweaks.noclip.disabled"));
-                    tooltip.add(x, " ");
-                    return;
-                }
             }
         }
     }
